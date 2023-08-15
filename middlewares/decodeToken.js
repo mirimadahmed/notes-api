@@ -16,7 +16,7 @@ const decodeToken = async (req, res, next) => {
     // Token is valid, attach the decoded user information to the request object
     req.userId = userId
   } catch (error) {
-    console.error('Error during token verification:', error)
+    logger.error(error)
     req.userId = null
   }
 
