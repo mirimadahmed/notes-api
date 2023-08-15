@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const userRepository = new UserRepository()
 
 class UserService {
-  async createUser (userData) {
+  async createUser(userData) {
     const { password, email } = userData
 
     try {
@@ -21,16 +21,16 @@ class UserService {
     }
   }
 
-  async getUserById (userId) {
+  async getUserById(userId) {
     return userRepository.getById(userId)
   }
 
-  async getUserByEmail (email) {
+  async getUserByEmail(email) {
     // Call the UserRepository to get a user by email
     return userRepository.getByEmail(email)
   }
 
-  async verifyUserPassword (user, password) {
+  async verifyUserPassword(user, password) {
     try {
       // Compare the password
       const isPasswordValid = await bcrypt.compare(password, user.password)
