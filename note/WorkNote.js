@@ -1,8 +1,8 @@
 const Note = require('./Note')
-const { NOTE: TYPE } = require('../utils/constants')
+const { NOTE } = require('../utils/constants')
 class WorkNote extends Note {
     constructor() {
-        super(TYPE.WORK)
+        super(NOTE.TYPE.WORK)
     }
 }
 

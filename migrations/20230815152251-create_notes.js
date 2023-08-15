@@ -1,5 +1,5 @@
 'use strict';
-const { NOTE: TYPE } = require('../utils/constants')
+const { NOTE } = require('../utils/constants')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -19,9 +19,9 @@ module.exports = {
         allowNull: true
       },
       type: {
-        type: Sequelize.ENUM(TYPE.PERSONAL, TYPE.WORK), // Specify possible enum values
+        type: Sequelize.ENUM(NOTE.TYPE.PERSONAL, NOTE.TYPE.WORK), // Specify possible enum values
         allowNull: false,
-        defaultValue: TYPE.PERSONAL
+        defaultValue: NOTE.TYPE.PERSONAL
       },
       userId: {
         allowNull: false,
