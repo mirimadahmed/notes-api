@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../config/database')
 const User = require('./user')
+const { NOTE: TYPE } = require('../utils/constants')
 
 const Notes = sequelize.define('Notes', {
   id: {
@@ -18,9 +19,9 @@ const Notes = sequelize.define('Notes', {
     allowNull: true
   },
   type: {
-    type: DataTypes.ENUM,
+    type: DataTypes.ENUM(TYPE.PERSONAL, TYPE.WORK),
     allowNull: false,
-    defaultValue: "Personal"
+    defaultValue: TYPE.PERSONAL
   },
   userId: {
     allowNull: false,
