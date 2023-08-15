@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const authRoutes = require('./authRoutes')
+const notesRoutes = require('./notesRoutes')
 
-// Signup route
 router.use('/auth', authRoutes)
+router.use('./notes', notesRoutes)
 
 module.exports = router
