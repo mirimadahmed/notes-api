@@ -17,7 +17,7 @@ class UserController {
       const newUser = await userService.createUser({ username, email, password })
 
       // Generate JWT token
-      const token = jwt.sign({ userId: newUser.id, tokenVersion: 0 }, process.env.JWT_SECRET_KEY)
+      const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET_KEY)
 
       // Respond with the token and user data
       res.json({ token, user: newUser })
@@ -42,9 +42,8 @@ class UserController {
       if (!validatedUser) {
         return res.status(401).json({ message: 'Invalid credentials' })
       }
-      await userService.updateTokenVersion(validatedUser)
       // Generate JWT token
-      const token = jwt.sign({ userId: user.id, tokenVersion: validatedUser.tokenVersion }, process.env.JWT_SECRET_KEY)
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY)
 
       // Respond with the token and user data
       res.json({ token, user })
