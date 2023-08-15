@@ -4,11 +4,14 @@
  * Module dependencies.
  */
 require('dotenv').config()
+const logger = require('../utils/logger')
 const app = require('../app')
 const cors = require('cors')
 const debug = require('debug')('notes-api:server')
 const http = require('http')
 app.use(cors())
+
+global.logger = logger
 
 /**
  * Get port from environment and store in Express.
@@ -28,7 +31,7 @@ const server = http.createServer(app)
  */
 
 server.listen(port, () => {
-  console.log(`Server is running on port ${port}`)
+  logger.log(`Server is running on port ${port}`)
 })
 server.on('error', onError)
 server.on('listening', onListening)
@@ -69,11 +72,11 @@ function onError (error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges')
+      logger.error(bind + ' requires elevated privileges')
       process.exit(1)
       break
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use')
+      logger.error(bind + ' is already in use')
       process.exit(1)
       break
     default:
