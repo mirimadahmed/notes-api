@@ -18,7 +18,7 @@ app.use('/api', routes) // Adjust the base path as per your preference
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
-  console.error(err) // Log the error
+  logger.error(err) // Log the error
   res.status(500).json({ error: 'Internal Server Error' })
 })
 
