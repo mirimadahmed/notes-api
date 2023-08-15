@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:14.16.1-alpine
+FROM node:18.17.1-alpine
 
 RUN apk update && \
   apk add bash
@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 3000
 
 # Start the application
-CMD [ "npm", "start" ]
+CMD npm run dev

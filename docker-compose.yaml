@@ -11,6 +11,7 @@ services:
       - '3000:3000'
     depends_on:
       - db
+      - cache
     env_file:
       - .env
   db:
@@ -25,3 +26,14 @@ services:
       MYSQL_PASSWORD: admin
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: db
+  cache:
+    image: redis
+    ports:
+      - '5010:5010'
+    volumes:
+      - './storage/redis/.data/:/data'
+    command:
+      - redis-server
+      - '--port 5010'
+      - '--appendonly'
+      - 'yes'
