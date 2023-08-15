@@ -18,9 +18,9 @@ const Notes = sequelize.define('Notes', {
     allowNull: true
   },
   type: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.ENUM,
     allowNull: false,
-    defaultValue: 1 // 1 for personal, 2 for work
+    defaultValue: "Personal"
   },
   userId: {
     allowNull: false,
@@ -39,7 +39,7 @@ const Notes = sequelize.define('Notes', {
     type: DataTypes.DATE
   }
 }, {
-  tableName: 'companies' // Specify the table name
+  tableName: 'notes' // Specify the table name
 })
 
 // Define the association with User
