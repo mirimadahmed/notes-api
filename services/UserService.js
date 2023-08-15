@@ -39,11 +39,11 @@ class UserService {
         // Password is valid, return the user
         return user
       } else {
-        throw new Error('Invalid password')
+        return false
       }
     } catch (error) {
       // Handle any errors
-      throw new Error('Failed to login')
+      throw new Error(error)
     }
   }
 }
