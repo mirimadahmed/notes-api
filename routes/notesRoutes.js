@@ -7,10 +7,11 @@ const { createNotesValidationRules, updateNotesValidationRules } = require('../m
 const NotesController = new NotesController()
 
 // Define the route handlers
-router.get('/', authMiddleware, NotesController.getAllUserNotes.bind(NotesController))
-router.get('/:noteId', authMiddleware, NotesController.getNoteById.bind(NotesController))
-router.post('/', authMiddleware, createNotesValidationRules, NotesController.createNewNote.bind(NotesController))
-router.put('/:noteId', authMiddleware, updateNotesValidationRules, NotesController.updateNote.bind(NotesController))
-router.delete('/:noteId', authMiddleware, deleteNotesValidationRules, NotesController.deleteNote.bind(NotesController))
+router.use(authMiddleware);
+router.get('/', NotesController.getAllUserNotes.bind(NotesController))
+router.get('/:noteId', NotesController.getNoteById.bind(NotesController))
+router.post('/', createNotesValidationRules, NotesController.createNewNote.bind(NotesController))
+router.put('/:noteId', updateNotesValidationRules, NotesController.updateNote.bind(NotesController))
+router.delete('/:noteId', deleteNotesValidationRules, NotesController.deleteNote.bind(NotesController))
 
 module.exports = router
