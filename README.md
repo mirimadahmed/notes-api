@@ -75,3 +75,5 @@ This project is a "Note Taking" application that allows users to create, retriev
 - **GET /api/notes/:noteId**: Retrieve a specific note.
 - **PUT /api/notes/:noteId**: Update a note.
 - **DELETE /api/notes/:noteId**: Delete a note.
+
+Postman API Docs Export JSON is in the root directory.
