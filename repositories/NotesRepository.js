@@ -9,10 +9,10 @@ class NotesRepository {
     return Notes.findByPk(noteId)
   }
 
-  async createNewNote(userId, NotesData) {
+  async createNewNote(userId, notesData) {
     return await Notes.create({
       userId,
-      ...NotesData
+      ...notesData
     })
   }
 
@@ -20,10 +20,10 @@ class NotesRepository {
     return await Notes.destroy({ where: { id: noteId } })
   }
 
-  async updateNote(noteId, NotesData) {
+  async updateNote(noteId, notesData) {
     try {
-      // Update the existing Notes
-      return await Notes.update(NotesData, {
+      // Update the existing Note
+      return await Notes.update(notesData, {
         where: { id: noteId }
       })
     } catch (error) {
