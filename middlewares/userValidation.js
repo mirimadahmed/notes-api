@@ -2,14 +2,14 @@ const { body, validationResult } = require('express-validator')
 
 // Validation middleware for signup
 exports.validateSignup = [
-  body('email').isEmail().withMessage('Invalid email'),
+  body('email').notEmpty().isEmail().withMessage('Invalid email'),
   body('password').notEmpty().withMessage('Password is required'),
   handleValidationErrors
 ]
 
 // Validation middleware for login
 exports.validateLogin = [
-  body('email').isEmail().withMessage('Invalid email'),
+  body('email').notEmpty().isEmail().withMessage('Invalid email'),
   body('password').notEmpty().withMessage('Password is required'),
   handleValidationErrors
 ]
