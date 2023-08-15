@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - './:/var/app'
+      - '/var/app/node_modules'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    env_file:
+      - .env
+  db:
+    image: 'mysql:5.7.29'
+    platform: linux/x86_64
+    ports:
+      - '5020:3306'
+    volumes:
+      - './storage/mysql/.data:/var/lib/mysql'
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: db
