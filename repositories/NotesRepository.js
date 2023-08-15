@@ -1,8 +1,18 @@
 const Notes = require('../models/notes')
+const RedisClient = require('../utils/cache')
 
 class NotesRepository {
   async getNotesByUserId(userId) {
-    return Notes.findAll({ where: { userId } })
+    // Before querying the DB
+    const cachedNotes = await RedisClient.client.get(`notes:${userId}`);
+    if (cachedNotes) {
+      return JSON.parse(cachedNotes);
+    } else {
+      const notes = Notes.findAll({ where: { userId } })
+      // If not cached, query DB then:
+      await RedisClient.client.setEx(`notes:${userId}`, 3600, JSON.stringify(notes)); // Cache for 1 hour
+      return notes
+    }
   }
 
   async getNoteByNoteId(noteId) {
@@ -10,24 +20,25 @@ class NotesRepository {
   }
 
   async createNewNote(userId, notesData) {
+    await RedisClient.client.del(`notes:${userId}`);
     return await Notes.create({
       userId,
       ...notesData
     })
   }
 
-  async deleteNoteById(noteId) {
+  async deleteNoteById(noteId, userId) {
+    await RedisClient.client.del(`notes:${userId}`);
     return await Notes.destroy({ where: { id: noteId } })
   }
 
-  async updateNote(noteId, notesData) {
+  async updateNote(note, notesData, userId) {
     try {
-      // Update the existing Note
-      return await Notes.update(notesData, {
-        where: { id: noteId }
-      })
+      const updatedNote = await note.update(notesData)
+      await RedisClient.client.del(`notes:${userId}`);
+      return updatedNote
     } catch (error) {
-      console.error('Error updating invoice to table:', error)
+      logger.error(error)
       throw error
     }
   }
