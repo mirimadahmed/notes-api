@@ -25,7 +25,7 @@ class UserController {
       }
 
       // Create a new user
-      const newUser = await userService.createUser({ username, email, password });
+      const newUser = await userService.createUser({ email, password });
 
       // Generate JWT token
       const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET_KEY);
@@ -33,7 +33,7 @@ class UserController {
       // Respond with the token and user data
       res.json({ token, user: newUser });
     } catch (error) {
-      console.error('Error during sign up:', error);
+      logger.error(error);
       res.status(500).json({ message: 'Sign up failed' });
     }
   }
@@ -66,7 +66,7 @@ class UserController {
       // Respond with the token and user data
       res.json({ token, user });
     } catch (error) {
-      console.error('Error during login:', error);
+      logger.error(error);
       res.status(500).json({ message: 'Login failed' });
     }
   }
