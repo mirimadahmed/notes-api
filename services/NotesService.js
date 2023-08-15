@@ -13,12 +13,12 @@ class NotesService {
     return this.NotesRepository.getNoteByNoteId(noteId)
   }
 
-  async createNote (noteId, NotesData) {
-    return this.NotesRepository.createNewNote(noteId, NotesData)
+  async createNote (noteId, notesData) {
+    return this.NotesRepository.createNewNote(noteId, notesData)
   }
 
-  async updateNote (noteId, NotesData) {
-    return this.NotesRepository.updateNote(noteId, NotesData)
+  async updateNote (noteId, notesData) {
+    return this.NotesRepository.updateNote(noteId, notesData)
   }
 
   async deleteNoteById (noteId) {
